@@ -1,12 +1,14 @@
 class ReviewsController < ApplicationController
-before action: set_restaurant 
+
 	def new
+     @restaurant = Restaurant.find(params[:restaurant_id])
     # afficcher le formulaire
-		@review = Review.new
+		@review = @restaurant.reviews.build # c'est comme Review.new sauf qu'on aura récup le restaurant ID
 	end
-end
+
 
 def create
+   @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.new(review_params)
     # enregistrer la review en base
     @review.restaurant = @restaurant
@@ -16,7 +18,7 @@ end
 
   private
 
-  def set_restaurant
-    @restaurant = Restaurant.find(params[restaurant_id])
+  def review_params
+    params.require(:review).permit(:content)
   end
 end

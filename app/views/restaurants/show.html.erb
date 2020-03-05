@@ -2,6 +2,14 @@
 <p><%= @restaurant.adress %></p>
 <p><%= @restaurant.category %></p>
 
-<%= link_to "Create a restaurant", create_restaurant_path(@restaurant) %>
+<%= link_to "Edit", edit_restaurant_path %>
+<%= link_to "Add a review", new_restaurant_review_path(@restaurant) %>
 
-<% end %>
+
+<ul>
+	<%= @restaurant.reviews.each do |review| %>
+	<li><%=review.content%></li>
+	<li><%=review.rating%></li>
+</ul>
+	<%end%>
+
